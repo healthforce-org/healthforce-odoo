@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Editor & OS
+.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+# Environment & virtualenv
+.env
+.venv/
+env/
+venv/
+pip-log.txt
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Secret configs
+*.secret
+*.key
+*.pem
+*.crt
+*.enc
+*.env
+secrets.yaml
+
+# Kubernetes
+*.local.yaml
+k8s/*/secret.yaml
+k8s/*/configmap.yaml  # Jika berisi credential
+k8s/*/values.yaml
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Odoo specific
+odoo.conf
+*.db
+*.sql
+addons/*/node_modules/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Misc
+coverage.xml
+htmlcov/
+*.coverage
+*.cache
+.nyc_output
+pytest_cache/
+
+# GitHub codespaces/devcontainers (optional)
+.devcontainer/
