@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: healthforce_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - healthforce-net
+
+  odoo:
+    build:
+      context: .
+      dockerfile: docker/odoo/Dockerfile
+    container_name: healthforce_odoo
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "5678:5678" 
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: odoo
+    volumes:
+      - ./odoo_addons:/mnt/extra-addons
+      - ./docker/odoo/odoo.conf:/etc/odoo/odoo.conf
+    networks:
+      - healthforce-net
+    command: 
+      [
+        "python3", "-m", "debugpy",
+        "--listen", "0.0.0.0:5678",
+        "--wait-for-client",
+        "odoo",
+        "-c", "/etc/odoo/odoo.conf"
+      ]
+
+volumes:
+  db-data:
+
+networks:
+  healthforce-net:
